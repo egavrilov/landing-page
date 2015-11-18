@@ -43,7 +43,6 @@ gulp.task('styles', function () {
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sass(sassOptions).on('error', $.sass.logError))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
-    .pipe($.minifyCss({processImport: false}))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
     .pipe(browserSync.reload({stream: true}));
 });

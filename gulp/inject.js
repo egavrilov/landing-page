@@ -28,6 +28,6 @@ gulp.task('inject', ['scripts', 'styles'], function () {
     .pipe($.inject(injectStyles, injectOptions))
     .pipe($.inject(injectScripts, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
-    .pipe($.jade())
+    .pipe($.jade({pretty: true}))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));
 });
