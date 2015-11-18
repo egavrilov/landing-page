@@ -12,11 +12,12 @@ angular.module('sl.actions', ['ngRoute'])
     $routeProvider
       .when('/actions/:id', angular.extend({
         resolve: {
-          current: /*@ngInject*/(Actions, $route, $rootScope, $q) => {
+          current: /*@ngInject*/(Actions, Main, $route, $rootScope, $q) => {
             let deferred = $q.defer();
             let setAction = () => {
               Actions.current = Actions.getById($route.current.params.id);
               deferred.resolve();
+              Main.filterById(Actions.current.outlets);
             };
             if (Actions.actions.length) {
               setAction();

@@ -1,3 +1,4 @@
+/*global angular*/
 function MainFactory($log, $http, $timeout, $q) {
   let outlets = [];
   let regions = [];
@@ -40,6 +41,14 @@ function MainFactory($log, $http, $timeout, $q) {
         });
       }
     }, error).then(filterOutlets);
+  };
+
+  factory.filterById = function (ids) {
+    if(!angular.isArray(ids)) {
+      ids = [ids];
+    }
+
+    factory.outlets = factory.outlets.filter((outlet) => ids.indexOf(outlet.id) !== -1);
   };
 
   factory.getById = function (id) {

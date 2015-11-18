@@ -18,24 +18,23 @@
       margin: 0
 
   .action_current
-    @extend .col-xl-12
+    width: 100%
 
-  .action_current,
   .action__banners
-    @extend .col-xs-12
+    margin: 1em 0
     max-width: none
-    height: 100%
 
-    img
-      display: block
-      width: 100%
-      height: 100%
+    .banner
+      @extend .col-sm-7
+      height: 400px
+      background: transparent no-repeat 50% 0
+      background-size: contain
 
-      &.banner
-        @extend .col-sm-7
-
-      &.banner_terms
-        @extend .col-sm-5
+  .action__reg
+    @extend .col-sm-5
+    height: 400px
+    background: transparent no-repeat 50% 0
+    background-size: contain
 
   .action__title
     padding: 0 .5em
