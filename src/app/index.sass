@@ -1,0 +1,15 @@
+// bower:scss
+// endbower
+
+$cdn: ''
+
+*
+  outline: none
+
+@each $breakpoint in map-keys($grid-breakpoints)
+  .hidden-#{$breakpoint}
+    display: none !important
+
+
+// injector
+// endinjector

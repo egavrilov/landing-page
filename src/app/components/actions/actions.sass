@@ -1,0 +1,56 @@
+.sl-actions
+  @extend .row
+
+  .action
+    @extend .col-xs-6
+    @extend .col-sm-4
+    @extend .col-lg-2
+    text-align: center
+    padding: .5em 0
+
+    a
+      display: block
+
+    img
+      width: 90%
+      border: 0
+      padding: 0
+      margin: 0
+
+  .action_current
+    @extend .col-xl-12
+
+  .action_current,
+  .action__banners
+    @extend .col-xs-12
+    max-width: none
+    height: 100%
+
+    img
+      display: block
+      width: 100%
+      height: 100%
+
+      &.banner
+        @extend .col-sm-7
+
+      &.banner_terms
+        @extend .col-sm-5
+
+  .action__title
+    padding: 0 .5em
+
+  .action__terms
+    $textColor: #555
+    padding: 0 1em
+    h5
+      text-transform: uppercase
+      color: $textColor
+
+      +media-breakpoint-up(sm)
+        text-align: left
+
+    .terms__text
+      text-align: left
+      font-size: .9em
+      color: $textColor

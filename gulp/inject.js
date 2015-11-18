@@ -13,20 +13,21 @@ gulp.task('inject', ['scripts', 'styles'], function () {
   var injectStyles = gulp.src([
     path.join(conf.paths.tmp, '/serve/app/**/*.css'),
     path.join('!' + conf.paths.tmp, '/serve/app/vendor.css')
-  ], { read: false });
+  ], {read: false});
 
   var injectScripts = gulp.src([
     path.join(conf.paths.tmp, '/serve/app/**/*.module.js')
-  ], { read: false });
+  ], {read: false});
 
   var injectOptions = {
     ignorePath: [conf.paths.src, path.join(conf.paths.tmp, '/serve')],
     addRootSlash: false
   };
 
-  return gulp.src(path.join(conf.paths.src, '/*.html'))
+  return gulp.src(path.join(conf.paths.src, '/*.jade'))
     .pipe($.inject(injectStyles, injectOptions))
     .pipe($.inject(injectScripts, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
+    .pipe($.jade())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve')));
 });

@@ -16,9 +16,9 @@ gulp.task('watch', ['scripts:watch', 'markups', 'inject'], function () {
 
   gulp.watch([
     path.join(conf.paths.src, '/app/**/*.css'),
-    path.join(conf.paths.src, '/app/**/*.less')
-  ], function(event) {
-    if(isOnlyChange(event)) {
+    path.join(conf.paths.src, '/app/**/*.{sass,scss}')
+  ], function (event) {
+    if (isOnlyChange(event)) {
       gulp.start('styles');
     } else {
       gulp.start('inject');
@@ -26,9 +26,9 @@ gulp.task('watch', ['scripts:watch', 'markups', 'inject'], function () {
   });
 
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.jade'), ['markups']);
+  gulp.watch(path.join(conf.paths.src, '/**/*.jade'), ['markups']);
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
+  gulp.watch(path.join(conf.paths.src, '/**/*.html'), function (event) {
     browserSync.reload(event.path);
   });
 });

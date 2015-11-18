@@ -12,21 +12,21 @@ var wiredep = require('wiredep').stream;
 var _ = require('lodash');
 
 gulp.task('styles', function () {
-  var lessOptions = {
-    options: [
+  var sassOptions = {
+    includePaths: [
       'bower_components',
       path.join(conf.paths.src, '/app')
     ]
   };
 
   var injectFiles = gulp.src([
-    path.join(conf.paths.src, '/app/fonts.less'),
-    path.join(conf.paths.src, '/app/**/*.less'),
-    path.join('!' + conf.paths.src, '/app/index.less')
-  ], { read: false });
+    path.join(conf.paths.src, '/app/fonts.scss'),
+    path.join(conf.paths.src, '/app/**/*.{sass,scss}'),
+    path.join('!' + conf.paths.src, '/app/index.sass')
+  ], {read: false});
 
   var injectOptions = {
-    transform: function(filePath) {
+    transform: function (filePath) {
       filePath = filePath.replace(conf.paths.src + '/app/', '');
       return '@import "' + filePath + '";';
     },
@@ -37,15 +37,13 @@ gulp.task('styles', function () {
 
 
   return gulp.src([
-    path.join(conf.paths.src, '/app/index.less')
-  ])
+      path.join(conf.paths.src, '/app/index.sass')
+    ])
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
-    //.pipe($.sourcemaps.init())
-    .pipe($.less(lessOptions)).on('error', conf.errorHandler('Less'))
+    .pipe($.sass(sassOptions).on('error', $.sass.logError))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
-    .pipe($.minifyCss({ processImport: false }))
-    //.pipe($.sourcemaps.write())
+    .pipe($.minifyCss({processImport: false}))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
-    .pipe(browserSync.reload({ stream: true }));
+    .pipe(browserSync.reload({stream: true}));
 });

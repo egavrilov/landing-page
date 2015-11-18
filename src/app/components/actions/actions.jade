@@ -1,0 +1,14 @@
+.action(ng-if='!actions.model.current', ng-repeat='action in actions.model.actions')
+  a(href='#!/actions/{{::action.id}}')
+    img(ng-src='{{::actions.getImage(action, "preview")}}')
+.action.action_current(ng-if='actions.model.current')
+  h2.action__title(ng-bind='::actions.model.current.full_name')
+  .action__banners
+    img.banner(ng-src='{{::actions.getImage(actions.model.current, "podarok")}}')
+    img.banner_terms(ng-src='{{::actions.getImage(actions.model.current, "maket")}}')
+  .action__terms
+    h5.terms__title Условия акции
+    .terms__text(ng-bind='::actions.model.current.description')
+
+  .action__map(sl-outlets)
+

@@ -1,16 +1,17 @@
-.sl-outlets.row
-  .col-xs-12.col-sm-4.col-md-4.region--wrapper
+.sl-outlets
+  h5 МАГАЗИНЫ УЧАСТНИКИ АКЦИИ:
+  .region--wrapper
     .region
       .region--current
         span Ваш город:&nbsp;
         span.region--current-value(ng-bind='main.model.region.name')
       select.region--form(ng-options='region as region.name for region in main.model.regions track by region.id',
         ng-model='main.model.region', ng-change='outlets.trackRegion()')
-    .outlets--view(ng-if='main.isMobile')
+    .outlets--view
       button(ng-click='outlets.showcase("list")', ng-class='{"outlets--view-active": outlets.showcase() === "list"}') Список
       button(ng-click='outlets.showcase("map")', ng-class='{"outlets--view-active": outlets.showcase() === "map"}') Карта
     .outlets--search
-      input(type='text', ng-model='outlets.outletsFilter', ng-change='outlets.bound()'
+      input(type='text', ng-model='outlets.outletsFilter', ng-change='outlets.bound()',
         ng-class='{"outlets--search-filter": main.isMobile}')
       .outlets--search-icon
     .outlets--wrapper(ng-hide='main.isMobile && outlets.showcase() !== "list"')
@@ -19,16 +20,16 @@
         ng-click='outlets.select(outlet)')
         .outlet-title(ng-bind='::outlet.mall')
         .outlet-info
-          .address(ng-bind='::outlet.address')
-          span.metro(ng-show='main.isMobile && outlet.selected && outlet.metros[0]')
+          .address(ng-bind='::outlet.address', ng-show='outlet.selected')
+          span.metro
             span.metro--icon(ng-style='{backgroundColor: "#"+ outlet.metros[0].color}')
             | {{::outlet.metros[0].name}}
           .hours
             span(ng-show='main.isMobile && outlet.selected', ng-bind='::current.opening_hours')
 
-  .col-xs-12.col-sm-8.col-md-8(ng-hide='main.isMobile && outlets.showcase() !== "map"')
+  .sl-map--wrapper(ng-class='{"outlets--showcase_map": outlets.showcase() !== "map"}')
     a(name='map')
-    map.sl-map(
+    ng-map.sl-map(
       height="600",
       pan-control="true",
       pan-control-options="{position:'TOP_RIGHT'}",
@@ -41,11 +42,11 @@
 
       marker(ng-repeat='outlet in main.model.outlets| filter:outlets.outletsFilter',
         id='outlet_{{::outlet.id}}',
-        position='{{::outlet.geo.join()}}',
+        position='{{::outlet.geo}}',
         on-click='outlets.openInfo(outlet, outlets)',
         icon='{{outlet.icon || "http://cdn1.love.sl/love.sl/common/actions/charm/assets/marker.png"}}')
         info-window(id='info_{{::outlet.id}}',
-          visible-on-marker='outlet_{{::outlet.id}}',
+          visible='{{outlet.id === current.id}}',
           closeclick='outlets.back()')
           .outlet--marker-info
             h4(ng-bind='current.mall')

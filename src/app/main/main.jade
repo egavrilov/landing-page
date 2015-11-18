@@ -1,50 +1,10 @@
-include ../components/header/header
 
-.content-section.sl-content(ng-controller='MainController as main')
-  .container
-    .sl-action.row
-      .preview.col-lg-8.col-md-8.col-sm-12.col-xs-12
-      .action-terms.col-lg-4.col-md-4.col-sm-12.col-xs-12(ng-class='{"action--form-activated": main.activated, "action--form-invalid": main.invalid}')
-        .terms
-          h4 ДЛЯ ПОЛУЧЕНИЯ ПОДАРКА:
-          ol
-            li Посетите любой магазин SUNLIGHT участвующий в акции.
-            li Сообщите консультанту Ваш промокод и номер телефона.
-            li Получите подарок – один из трех шармов на Ваш выбор *.
-          form.action--form.col-lg-12.row(ng-submit='main.register()')
-            .action--input-phone.col-lg-12.col-md-12.col-sm-6.col-xs-12
-              .action--input-prefix.col-lg-2.col-md-2.col-sm-3.col-xs-3 +7
-              input.col-lg-10.col-md-10.col-sm-9.col-xs-9(type='text', placeholder='___ ___ __ __', ng-model='main.phone', ng-if='!main.isMobile')
-              input.col-lg-10.col-md-10.col-sm-9.col-xs-9(type='number', placeholder='___ ___ __ __', ng-model='main.phone', ng-if='main.isMobile')
-              .action--message-invalid мобильный телефон в формате 9123456789
-              label(for='termsAgree')
-                input(type='checkbox', ng-model='main.agree', id='termsAgree')
-                span &nbsp;Я согласен с условиями акции
-              label(for='subscribe')
-                input(type='checkbox', ng-model='main.subscribe', id='subscribe')
-                span &nbsp;Подписаться на новостную рассылку
-            .action--submit.col-lg-12.col-md-12.col-sm-6.col-xs-12
-              button(type='submit', ng-disabled='!main.agree || main.isLocked', id='getPromoCode') Получить подарок
-        .action--message-activated.col-lg-4.col-md-4.col-sm-12.col-xs-12
-          h5 Спасибо!
-          p ваш подарок ждет Вас <br/> в любом магазине SUNLIGHT!
-          .activated--share
-            h6.buttons Расскажи друзьям
-            .activated--share-buttons.row
-              a#vkButton.vkButton.col-lg-4.col-md-4.col-sm-4.col-xs-4(target="_blank", href="http://vk.com/sunlightbrilliant")
-              a#fbButton.fbButton.col-lg-4.col-md-4.col-sm-4.col-xs-4(target="_blank", href="https://www.facebook.com/sunmag.love")
-              a#gpButton.okButton.col-lg-4.col-md-4.col-sm-4.col-xs-4(target="_blank", href="http://ok.ru/group/52428133171388")
-            h6.social Вступай в группы - получай подарки!
-            .activated--social
-              a(href="http://vk.com/sunlightbrilliant", target="_blank")
-                .vkButton
-              a(href="https://instagram.com/sunlightbrilliant/", target="_blank")
-                .instaButton
-
-    .row
-      .col-lg-12
-        h2 Центры выдачи подарков
-        .sl-region(sl-outlets)
+.sl-content
+  a(id='mainTop')
+  .sl-actions(sl-actions)
+  //.sl-outlets
+  //  h2 Центры выдачи подарков
+    .sl-region(sl-outlets)
 
     //-.row
       .sl-products.col-lg-12
@@ -97,10 +57,9 @@ include ../components/header/header
         .col-lg-6.col-md-6.col-sm-6.col-xs-12
           a.banner(ng-style='{backgroundImage: "url(/assets/banner-autumn-sharm.jpg)"}')
 
-    .row.col-xs-10.col-xs-offset-1.col-lg-10.col-lg-offset-1
-        p.underterms
-          p * В акции участвует 3 вида шарма из алпанита: голубой гладкий, зеленый с цветком и синий резной. Количество подарков ограничено.В случае, если подарок закончится до завершения акции, консультант вправе заменить подарок, предложив альтернативный, или назвать адрес магазина SUNLIGHT, где подарок есть в наличии. Браслет в акции не участвует.
-          p Обязательным условием участия в Акциях Программы «Клуб SUNLIGHT» является подтверждение номера телефона при регистрации в Акции (посредством получения кода на телефонный номер, указанный Участником Программы «Клуб SUNLIGHT»).
-          p Участник Программы «Клуб SUNLIGHT» может принять участие в каждой Акции, только один раз в период проведения Акции. В течение одного календарного дня Участник Программы «Клуб SUNLIGHT» имеет право получить подарок только по одной Акции, проводимой Организатором, независимо от количества предъявленных сообщений и купонов, предоставляющих право на получение подарков. Выдача нескольких подарков по различным Акциям в течение календарного дня одному и тому же участнику акции не производится.
+  //.row.col-xs-10.col-xs-offset-1.col-lg-10.col-lg-offset-1
+  //  p.underterms
+  //    p * В акции участвует 3 вида шарма из алпанита: голубой гладкий, зеленый с цветком и синий резной. Количество подарков ограничено.В случае, если подарок закончится до завершения акции, консультант вправе заменить подарок, предложив альтернативный, или назвать адрес магазина SUNLIGHT, где подарок есть в наличии. Браслет в акции не участвует.
+  //    p Обязательным условием участия в Акциях Программы «Клуб SUNLIGHT» является подтверждение номера телефона при регистрации в Акции (посредством получения кода на телефонный номер, указанный Участником Программы «Клуб SUNLIGHT»).
+  //    p Участник Программы «Клуб SUNLIGHT» может принять участие в каждой Акции, только один раз в период проведения Акции. В течение одного календарного дня Участник Программы «Клуб SUNLIGHT» имеет право получить подарок только по одной Акции, проводимой Организатором, независимо от количества предъявленных сообщений и купонов, предоставляющих право на получение подарков. Выдача нескольких подарков по различным Акциям в течение календарного дня одному и тому же участнику акции не производится.
 
-include ../components/footer/footer

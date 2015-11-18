@@ -13,21 +13,19 @@ class OutletsController {
   /**
    *@ngInject
    */
-  constructor($document, $scope, $timeout, $window, Main) {
+  constructor($document, $scope, $q, $timeout, $window, NgMap, Main) {
     this.$scope = $scope;
     this.$timeout = $timeout;
     this.$document = $document;
     this.$window = $window;
     this.model = Main;
 
-    $scope.$on('mapInitialized', () => {
-      this.isMapInit = true;
-      this.isModelInit && this.render();
-    });
-
-    this.model.init().then(() => {
-      this.isModelInit = true;
-      this.isMapInit && this.render();
+    $q.all({
+      map: NgMap.getMap(),
+      model: this.model.init()
+    }).then((results) => {
+      this.map = results.map;
+      this.render();
     });
   }
 
@@ -39,10 +37,10 @@ class OutletsController {
         this.bounds.extend(marker);
       }
     });
-    this.$scope.google.maps.event.trigger(this.$scope.map, 'resize');
-    this.$scope.map.fitBounds(this.bounds);
-    this.$scope.map.panToBounds(this.bounds);
-    if (this.$scope.map.zoom > 16 ) this.$scope.map.setZoom(16);
+    this.$scope.google.maps.event.trigger(this.map, 'resize');
+    this.map.fitBounds(this.bounds);
+    this.map.panToBounds(this.bounds);
+    if (this.map.zoom > 15 ) this.map.setZoom(15);
   }
 
   showcase(refresh){
@@ -62,16 +60,16 @@ class OutletsController {
   }
 
   addMarker(lat, lng) {
-    if (!this.$scope.map) return;
+    if (!this.map) return;
     return this.gm('Marker', {
       position: this.gm('LatLng', lat, lng),
-      map: this.$scope.map
+      map: this.map
     });
   }
 
   openInfo(event, outlet, outletsScope) {
     let id = outlet.id;
-    let map = this.map || this.$scope.map;
+    let map = this.map;
     let infoWindow = map.infoWindows[`info_${id}`];
     let marker = map.markers[`outlet_${id}`];
     let anchor = marker ? marker : (this.getPosition ? this : null);
@@ -118,9 +116,9 @@ class OutletsController {
     let matchPattern = true;
     if (!this)  return;
 
-    if (this.$scope.map) {
-      let bounds = this.$scope.map.getBounds();
-      belongsToMap = bounds.contains(this.$scope.map.markers[`outlet_${outlet.id}`].getPosition());
+    if (this.map) {
+      let bounds = this.map.getBounds();
+      belongsToMap = bounds.contains(this.map.markers[`outlet_${outlet.id}`].getPosition());
     }
 
     if (this.outletsFilter)

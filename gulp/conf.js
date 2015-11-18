@@ -31,21 +31,23 @@ exports.wiredep = {
   overrides: {
     bootstrap: {
       main: [
-        //"less/bootstrap.less",
-        "less/variables.less",
-        "less/mixins.less",
+        // Core variables and mixins
+        "scss/_variables.scss",
+        "scss/_mixins.scss",
 
-        "less/normalize.less",
+        // Reset and dependencies
+        "scss/_normalize.scss",
+        "scss/_print.scss",
 
-        "less/scaffolding.less",
-        "less/grid.less",
-        "less/forms.less",
-
-        "less/navs.less",
-        "less/navbar.less",
-
-        "less/utilities.less",
-        "less/responsive-utilities.less"
+        // Core CSS
+        "scss/_reboot.scss",
+        "scss/_type.scss",
+        "scss/_images.scss",
+        "scss/_code.scss",
+        "scss/_grid.scss",
+        "scss/_tables.scss",
+        "scss/_forms.scss",
+        "scss/_buttons.scss"
       ]
     }
   }
@@ -55,10 +57,10 @@ exports.wiredep = {
 /**
  *  Common implementation for an error handler of a Gulp plugin
  */
-exports.errorHandler = function(title) {
+exports.errorHandler = function (title) {
   'use strict';
 
-  return function(err) {
+  return function (err) {
     gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
     this.emit('end');
   };

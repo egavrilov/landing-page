@@ -12,26 +12,33 @@ function MainFactory($log, $http, $timeout, $q) {
 
   factory.init = () => {
     return $q.all({
-      location: getLocation(),
-      regions: getRegions(),
-      outlets: getOutlets()
+      location: $q.when(factory.region ? null : getLocation()),
+      regions: $q.when(factory.regions ? null : getRegions()),
+      outlets: $q.when(factory.outlets.length ? null : getOutlets())
     }).then((response) => {
-      let regionId = response.location.data && response.location.data.region_id || defaultRegion;
-      regions = response.regions.data.reduce((regionsObject, region) => {
-        regionsObject[region.id] = region;
-        return regionsObject;
-      }, {});
-      factory.regions = {};
-      factory.region = { id: regionId, name: regions[regionId].name };
-      outlets = response.outlets.data.filter((outlet) => !outlet.is_franchise);
+      let _regions = response.regions ? response.regions.data : factory.regions;
 
-      //available regions with filtered outlets
-      outlets.forEach((outlet) => {
+      if (response.location) {
+        let regionId = response.location.data && response.location.data.region_id || defaultRegion;
+        regions = _regions.reduce((regionsObject, region) => {
+          regionsObject[region.id] = region;
+          return regionsObject;
+        }, {});
+
+        factory.region = { id: regionId, name: regions[regionId].name };
+      }
+
+      if (response.regions && response.outlets) {
+        factory.regions = {};
+        outlets = response.outlets.data.filter((outlet) => !outlet.is_franchise);
+        //available regions with filtered outlets
+        outlets.forEach((outlet) => {
           if (outlet.region_id && outlet.region_id[0]) {
             let regionId = outlet.region_id[0];
             factory.regions[regionId] = regions[regionId];
           }
         });
+      }
     }, error).then(filterOutlets);
   };
 

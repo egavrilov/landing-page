@@ -13,6 +13,7 @@ class MainCtrl{
     this.agree = true;
     this.subscribe = true;
     this.isMobile = /android|ip(ad|hone|od)/i.test($window.navigator.userAgent);
+    $anchorScroll('mainTop');
   }
 
   renderMap(){
