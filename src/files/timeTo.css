@@ -1,0 +1,76 @@
+figure, figcaption {
+	display: block;
+}
+
+.transition {
+    -webkit-transition: top 400ms linear;
+    -moz-transition: top 400ms linear;
+    -ms-transition: top 400ms linear;
+    -o-transition: top 400ms linear;
+    transition: top 400ms linear;
+}
+
+.timeTo {
+	color: #3b3b3b;
+	font-size: 30px;
+	font-weight: 400;
+	font-family: Arial;
+	line-height: 108%;
+}
+
+.timeTo span {
+	vertical-align: top;
+	opacity: 0.01;
+	display: none;
+}
+
+.timeTo.timeTo-white div {
+	color: black;
+}
+.timeTo.timeTo-black div {
+	color: white;
+}
+
+.timeTo figure {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+.timeTo figcaption {
+	text-align: center;
+	/*font-size: 12px;*/
+	line-height: 80%;
+	font-weight: normal;
+	color: #888;
+}
+.timeTo div {
+	position: relative;
+	display: inline-block;
+	/*width: 25px;
+	height: 30px;*/
+	overflow: hidden;
+}
+.timeTo ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	left: 0 !important;
+}
+.timeTo ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+	color: #000;
+}
+#countdown, #countdown1, #countdown2 {
+	padding: 0 0 0 10px;
+}
+#countdown div, #countdown1 div, #countdown2 div {
+	width: 8px !important;
+	margin: 0 10px 0 0 !important;
+	text-align: center;
+}
+#countdown div.first, #countdown1 div.first, #countdown2 div.first {
+	margin: 0 1px 0 0 !important;
+}
