@@ -1,32 +1,35 @@
-export default /*@ngInject*/function ActionsFactory($http, $rootScope) {
+/*global angular*/
+export default /*@ngInject*/function ActionsFactory($http, $rootScope, $q) {
   var factory = {
     actions: [],
-    actionsById: {}
+    actionsBySlug: {}
   };
 
-  factory.getById = getById;
+  factory.getBySlug = getBySlug;
+  factory.getActions = getActions;
 
   function getActions() {
-    return $http.get('http://api.love.sl/v1/actions/actions/').then((response) => {
+    return $q.when(factory.actions.length ? {data: factory.actions} : $http.get('http://api.love.sl/v1/actions/actions/'))
+      .then((response) => {
       if (!response.data.results) return;
       factory.actions = factory.actions.concat(response.data.results);
 
       response.data.results.reduce((actions, action) => {
-        actions[action.id] = action;
+        actions[action.slug] = action;
         return actions;
-      }, factory.actionsById);
+      }, factory.actionsBySlug);
 
       $rootScope.$emit('actionsFetched');
     });
   }
 
-  function getById(id) {
-    if (!factory.actions || !factory.actionsById)
+  function getBySlug(slug) {
+    if (!factory.actions || !factory.actionsBySlug)
       return;
-    if (angular.isArray(id)) {
-      return id.map(getById);
+    if (angular.isArray(slug)) {
+      return slug.map(getBySlug);
     }
-    return factory.actionsById[id];
+    return factory.actionsBySlug[slug];
   }
 
   getActions();

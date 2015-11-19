@@ -43,7 +43,9 @@ gulp.task('styles', function () {
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sass(sassOptions).on('error', $.sass.logError))
-    .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
+    .pipe($.autoprefixer({
+      browsers: conf.supportedBrowsers
+    })).on('error', conf.errorHandler('Autoprefixer'))
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
     .pipe(browserSync.reload({stream: true}));
 });

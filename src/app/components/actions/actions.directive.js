@@ -1,3 +1,4 @@
+/*global angular*/
 export default function Actions() {
   return {
     scope: true,
@@ -12,9 +13,10 @@ class ActionsController {
   /**
    *@ngInject
    */
-  constructor(Actions, $http) {
+  constructor(Actions, $http, $interval) {
     this.model = Actions;
     this.$http = $http;
+    this.$interval = $interval;
   }
 
   getImage(action, type) {
@@ -24,9 +26,9 @@ class ActionsController {
 
   registerInAction(action) {
     action = action || this.current;
-    this.$http.post('http://promo.love.sl/submitjson/{id}', {
+    return this.$http.post('http://promo.love.sl/submitjson/{id}', {
       id: '{some_form_id_for_all_actions}',
       action: angular.isString(action) ? action : action.id
-    })
+    });
   }
 }

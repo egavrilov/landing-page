@@ -1,6 +1,6 @@
 
 .action(ng-if='!actions.model.current', ng-repeat='action in actions.model.actions')
-  a(href='#!/actions/{{::action.id}}')
+  a(href='#!/actions/{{::action.slug}}')
     img(ng-src='{{::actions.getImage(action, "preview")}}')
 .action.action_current(ng-if='actions.model.current')
   h2.action__title(ng-bind='::actions.model.current.full_name')

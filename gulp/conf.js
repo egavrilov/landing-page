@@ -20,6 +20,17 @@ exports.paths = {
 
 exports.cdnPrefix = 'http://cdn1.love.sl/love.sl/partners/actions/';
 
+exports.supportedBrowsers = [
+  'Android 2.3',
+  'Android >= 4',
+  'Chrome >= 35',
+  'Firefox >= 31',
+  'Explorer >= 9',
+  'iOS >= 7',
+  'Opera >= 12',
+  'Safari >= 7.1'
+];
+
 /**
  *  Wiredep is the lib which inject bower dependencies in your project
  *  Mainly used to inject script tags in the index.html but also used
