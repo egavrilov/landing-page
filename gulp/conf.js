@@ -18,7 +18,7 @@ exports.paths = {
   e2e: 'e2e'
 };
 
-exports.cdnPrefix = 'http://cdn1.love.sl/love.sl/partner/actions/';
+exports.cdnPrefix = 'http://cdn1.love.sl/love.sl/partners/actions/';
 
 /**
  *  Wiredep is the lib which inject bower dependencies in your project

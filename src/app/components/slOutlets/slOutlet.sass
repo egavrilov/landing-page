@@ -1,3 +1,5 @@
+$base: '#{$cdn}/app/components/slOutlets/images'
+
 .sl-map
   height: 943px
 
@@ -32,7 +34,7 @@
   margin-right: .25em
   width: $width
   height: $height
-  background: url('/assets/station_mask_white.png') no-repeat 50% 50%
+  background: url('#{$base}/station_mask_white.png') no-repeat 50% 50%
   background-size: contain
 
 .sl-outlets
@@ -164,7 +166,7 @@
       display: block
       width: 100%
       height: 100%
-      background: url('/assets/search.png') no-repeat 50% 50%
+      background: url('#{$base}/search.png') no-repeat 50% 50%
       transition: opacity 300ms
       z-index: 1
    
@@ -193,7 +195,7 @@
         width: $icon
         height: $icon
         content: ''
-        background: url('/assets/marker_list_grey.png') no-repeat 50% 50%
+        background: url('#{$base}/marker_list_grey.png') no-repeat 50% 50%
         background-size: contain
         transition: all 300ms
      
@@ -201,7 +203,7 @@
 
     &:hover
       .outlet-title:before
-        background-image: url('/assets/marker_list.png')
+        background-image: url('#{$base}/marker_list.png')
      
    
 
@@ -210,10 +212,10 @@
       border-color: red
 
       .outlet-title:before
-        background-image: url('/assets/marker_list_red.png')
+        background-image: url('#{$base}/marker_list_red.png')
 
       .metro--icon
-        background-image: url('/assets/station_mask_grey.png')
+        background-image: url('#{$base}/station_mask_grey.png')
  
   .metro
     font-size: 1.25em

@@ -39,6 +39,7 @@ gulp.task('styles', function () {
   return gulp.src([
       path.join(conf.paths.src, '/app/index.sass')
     ])
+    .pipe($.replace("$cdn: ''", "$cdn: '" + conf.cdnPrefix.slice(0, -1) + "'"))
     .pipe($.inject(injectFiles, injectOptions))
     .pipe(wiredep(_.extend({}, conf.wiredep)))
     .pipe($.sass(sassOptions).on('error', $.sass.logError))
